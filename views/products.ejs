@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product Master</title>
+</head>
+
+<body>
+
+<h2>Add Product</h2>
+
+<form action="/products/add" method="POST">
+
+<input type="text" name="productName" placeholder="Product Name" required>
+
+<select name="categoryId" required>
+
+<option value="">Select Category</option>
+
+<% categories.forEach(function(cat){ %>
+
+<option value="<%= cat.categoryId %>">
+<%= cat.categoryName %>
+</option>
+
+<% }) %>
+
+</select>
+
+<button type="submit">Add Product</button>
+
+</form>
+
+<h2>Product List</h2>
+
+<table border="1">
+
+<tr>
+<th>ProductId</th>
+<th>ProductName</th>
+<th>CategoryId</th>
+<th>CategoryName</th>
+<th>Actions</th>
+</tr>
+
+<% products.forEach(function(prod){ %>
+
+<tr>
+
+<td><%= prod.productId %></td>
+<td><%= prod.productName %></td>
+<td><%= prod.categoryId %></td>
+<td><%= prod.categoryName %></td>
+
+<td>
+
+<a href="/products/edit/<%= prod.productId %>">Edit</a>
+
+<a href="/products/delete/<%= prod.productId %>"
+onclick="return confirm('Delete this product?')">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+<br>
+
+<a href="/products?page=<%= page - 1 %>">Previous</a>
+
+<span> Page <%= page %> </span>
+
+<a href="/products?page=<%= page + 1 %>">Next</a>
+
+</body>
+</html>
